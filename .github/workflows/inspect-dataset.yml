@@ -1,26 +1,30 @@
 name: Inspect Dataset Metadata
 
 on:
-  push:
-    paths:
-      - ".github/workflows/inspect-dataset.yml"
-  workflow_dispatch:
+push:
+branches:
+- feature/dataset-integration
+paths:
+- ".github/workflows/inspect-dataset.yml"
+- "dataset_lookup.py"
+- "requirements.txt"
+workflow_dispatch:
 
 jobs:
-  inspect:
-    runs-on: ubuntu-latest
+inspect:
+runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+steps:
+  - name: Checkout repository
+    uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+  - name: Setup Python
+    uses: actions/setup-python@v5
+    with:
+      python-version: "3.11"
 
-      - name: Install dependencies
-        run: pip install huggingface_hub pyarrow fsspec requests aiohttp
+  - name: Install dependencies
+    run: pip install -r requirements.txt
 
-      - name: Inspect phone index
-      run: python dataset_lookup.py
+  - name: Inspect phone index
+    run: python dataset_lookup.py
