@@ -1,8 +1,8 @@
 import os
 from dataclasses import dataclass
 
-import pyarrow.parquet as pq
 import fsspec
+import pyarrow.parquet as pq
 from huggingface_hub import HfApi, hf_hub_url
 
 DATASET_ID = os.getenv(
@@ -23,7 +23,7 @@ row_groups: int
 schema: str
 
 def get_hf_files():
-"""Return the dataset's phone-index Parquet filenames."""
+"""Return phone-index Parquet filenames."""
 token = os.getenv("HF_TOKEN") or None
 api = HfApi(token=token)
 
@@ -41,12 +41,13 @@ return sorted(
 )
 
 def inspect_parquet_file(filename: str) -> ParquetFileInfo:
-"""Read remote Parquet metadata without downloading the full file."""
-token = os.getenv("HF_TOKEN")
+"""Read remote Parquet metadata."""
+token = os.getenv("HF_TOKEN") or None
+
 url = hf_hub_url(
-repo_id=DATASET_ID,
-filename=filename,
-repo_type="dataset",
+    repo_id=DATASET_ID,
+    filename=filename,
+    repo_type="dataset",
 )
 
 headers = {}
@@ -70,7 +71,7 @@ with fsspec.open(
     )
 
 def inspect_phone_index():
-"""Inspect the index structure and report metadata."""
+"""Inspect phone-index metadata."""
 files = get_hf_files()
 
 if not files:
