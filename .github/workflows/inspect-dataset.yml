@@ -2,9 +2,7 @@ name: Inspect Dataset Metadata
 
 on: [push, workflow_dispatch]
 
-jobs:
-inspect:
-runs-on: ubuntu-latest
+jobs:inspect: runs-on: ubuntu-latest
 
 steps:
   - name: Checkout repository
