@@ -1,0 +1,25 @@
+name: Inspect Dataset Metadata
+
+on:
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout feature branch
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install huggingface_hub pyarrow fsspec
+
+      - name: Run metadata inspection
+        run: |
+          python inspect_phone_index.py
