@@ -1,6 +1,6 @@
 name: Inspect Dataset Metadata
 
-on:
+'on':
 push:
 branches:
 - feature/dataset-integration
@@ -29,7 +29,7 @@ steps:
       python-version: "3.11"
 
   - name: Install dependencies
-    run: python -m pip install -r requirements.txt
+    run: python -m pip install huggingface_hub pyarrow fsspec requests aiohttp
 
   - name: Inspect phone index
     run: python dataset_lookup.py
