@@ -1,6 +1,9 @@
 name: Inspect Dataset Metadata
 
 on:
+  push:
+    paths:
+      - ".github/workflows/inspect-dataset.yml"
   workflow_dispatch:
 
 jobs:
@@ -8,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout feature branch
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -17,9 +20,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: |
-          pip install huggingface_hub pyarrow fsspec
+        run: pip install huggingface_hub pyarrow fsspec
 
-      - name: Run metadata inspection
-        run: |
-          python inspect_phone_index.py
+      - name: Inspect phone index metadata
+        run: python inspect_phone_index.py
