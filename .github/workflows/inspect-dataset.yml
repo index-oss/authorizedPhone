@@ -20,7 +20,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install huggingface_hub pyarrow fsspec
+        run: pip install huggingface_hub pyarrow fsspec requests aiohttp
 
       - name: Inspect phone index metadata
         run: python inspect_phone_index.py
