@@ -1,3 +1,0 @@
-streamlit
-huggingface_hub
-pyarrow
